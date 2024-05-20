@@ -1,3 +1,31 @@
-from django.shortcuts import render
+from rest_framework import viewsets
+from FSTR.DBpereval.serializers import *
+from FSTR.DBpereval.models import *
 
-# Create your views here.
+
+class PerevalViewset(viewsets.ModelViewSet):
+    queryset = Pereval.objects.all()
+    serializer_class = PerevalSerializer
+
+
+class TouristViewset(viewsets.ModelViewSet):
+    queryset = Tourist.objects.all()
+    serializer_class = TouristSerializer
+
+
+class CoordinatesViewset(viewsets.ModelViewSet):
+    queryset = Coordinates.objects.all()
+    serializer_class = CoordinatesSerializer
+
+
+class LevelViewset(viewsets.ModelViewSet):
+    queryset = Level.objects.all()
+    serializer_class = LevelSerializer
+
+
+class PerevalImageViewset(viewsets.ModelViewSet):
+    queryset = PerevalImage.objects.all()
+    serializer_class = PerevalImageSerializer
+
+
+
