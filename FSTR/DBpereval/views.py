@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from FSTR.DBpereval.serializers import *
-from FSTR.DBpereval.models import *
+from .serializers import *
+from .models import *
 
 
 class PerevalViewset(viewsets.ModelViewSet):
