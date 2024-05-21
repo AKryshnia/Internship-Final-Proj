@@ -32,3 +32,11 @@ class PerevalImageSerializer(serializers.HyperlinkedModelSerializer):
        model = PerevalImage
        fields = ['data', 'title', 'pereval', ]
 
+
+class PerevalAddedSerializer(serializers.Serializer):
+    pereval = PerevalSerializer()
+    user = TouristSerializer()
+    coords = CoordinatesSerializer()
+    level = LevelSerializer()
+    image = PerevalImageSerializer()
+
