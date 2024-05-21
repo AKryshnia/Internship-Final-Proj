@@ -35,6 +35,7 @@ class PerevalImageSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class PerevalAddedSerializer(serializers.Serializer):
+    pereval = PerevalSerializer()
     user = TouristSerializer()
     coords = CoordinatesSerializer()
     level = LevelSerializer()
