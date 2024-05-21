@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-
+# SECRET_KEY = 'django-insecure-tj=%gb^l8a-k%lp=^8d_0@_q=et%!hed#j%mo3=mp4)fbnk&tj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -79,18 +79,27 @@ WSGI_APPLICATION = 'FSTR.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'FSTRdatabase',
+#         'USER': [os.getenv('FSTR_DB_LOGIN')],
+#         'PASSWORD': [os.getenv('FSTR_DB_PASS')],
+#         'HOST': [os.getenv('FSTR_DB_HOST')],
+#         'PORT': [os.getenv('FSTR_DB_PORT')],
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'FSTRdatabase',
-        'USER': [os.getenv('FSTR_DB_LOGIN')],
-        'PASSWORD': [os.getenv('FSTR_DB_PASS')],
-        'HOST': [os.getenv('FSTR_DB_HOST')],
-        'PORT': [os.getenv('FSTR_DB_PORT')],
+        'USER': 'postgres',
+        'PASSWORD': 'ApT-HEk-Rhy-Eh7',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
-
-
 
 
 # Password validation
