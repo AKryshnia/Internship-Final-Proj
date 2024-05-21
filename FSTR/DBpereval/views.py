@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 from .serializers import *
 from .models import *
 
@@ -27,5 +27,9 @@ class PerevalImageViewset(viewsets.ModelViewSet):
     queryset = PerevalImage.objects.all()
     serializer_class = PerevalImageSerializer
 
+
+class PerevalAddedViewset(generics.ListCreateAPIView):
+    queryset = Pereval.objects.all()
+    serializer_class = PerevalAddedSerializer
 
 

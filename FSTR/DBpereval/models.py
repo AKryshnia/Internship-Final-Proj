@@ -66,5 +66,5 @@ class PerevalImage(models.Model):
     # само изображение
     data = models.ImageField(upload_to='pereval_image', default='default.jpg')
     title = models.CharField(max_length=255) # название
-    pereval = models.ForeignKey(Pereval, on_delete=models.CASCADE) # id перевала
+    pereval = models.ForeignKey(Pereval, on_delete=models.CASCADE, related_name='images') # id перевала
 
