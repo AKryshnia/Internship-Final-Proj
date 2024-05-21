@@ -5,8 +5,7 @@ from rest_framework import serializers
 class PerevalSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Pereval
-        fields = ['beauty_title', 'title', 'other_titles', 'connect', 'add_time', 'user', 'coords', 'winter', 'spring',
-                  'summer', 'autumn', 'status']
+        fields = ['beauty_title', 'title', 'other_titles', 'connect', 'add_time', 'user', 'coords', 'status']
 
 
 class TouristSerializer(serializers.HyperlinkedModelSerializer):
