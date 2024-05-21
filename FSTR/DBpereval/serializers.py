@@ -24,7 +24,7 @@ class CoordinatesSerializer(serializers.HyperlinkedModelSerializer):
 class LevelSerializer(serializers.HyperlinkedModelSerializer):
    class Meta:
        model = Level
-       fields = ['level', ]
+       fields = ['winter', 'spring', 'summer', 'autumn']
 
 
 class PerevalImageSerializer(serializers.HyperlinkedModelSerializer):
@@ -43,14 +43,14 @@ class PerevalAddedSerializer(serializers.Serializer):
 
     class Meta:
         model = Pereval
-        fields = ['beauty_title', 'title', 'other_titles', 'connect', 'add_time', 'user', 'coords', 'winter', 'spring',
-                  'summer', 'autumn', 'status', 'images']
+        fields = ['beauty_title', 'title', 'other_titles', 'connect', 'add_time', 'user', 'coords', 'status', 'images',
+                  'level']
 
     def create(self, validated_data, **kwargs):
         user = validated_data.pop('user')
         coords = validated_data.pop('coords')
         level = validated_data.pop('level')
-        images = validated_data.pop('image')
+        images = validated_data.pop('images')
 
         user, created = Tourist.objects.get_or_create(**user)
 

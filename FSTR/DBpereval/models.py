@@ -24,11 +24,6 @@ class Pereval(models.Model):
         ('RJ', 'rejected'),
     )
 
-    winter = models.ForeignKey('Level', on_delete=models.CASCADE, related_name='winter_level')
-    spring = models.ForeignKey('Level', on_delete=models.CASCADE, related_name='spring_level')
-    summer = models.ForeignKey('Level', on_delete=models.CASCADE, related_name='summer_level')
-    autumn = models.ForeignKey('Level', on_delete=models.CASCADE, related_name='autumn_level')
-
     beauty_title = models.CharField(max_length=128)
     title = models.CharField(max_length=128)
     other_titles = models.CharField(max_length=128)
@@ -59,12 +54,16 @@ class Level(models.Model):
         ('2Б', '2Б'),
         ('3Б', '3Б'),
     )
-    level = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=LVLA_1)
+
+    winter = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=LVLA_1)
+    spring = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=LVLA_1)
+    summer = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=LVLA_1)
+    autumn = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=LVLA_1)
 
 
 class PerevalImage(models.Model):
     # само изображение
-    data = models.ImageField(upload_to='pereval_image', default='default.jpg')
+    images = models.ImageField(upload_to='pereval_image', default='default.jpg')
     title = models.CharField(max_length=255) # название
     pereval = models.ForeignKey(Pereval, on_delete=models.CASCADE, related_name='images') # id перевала
 
