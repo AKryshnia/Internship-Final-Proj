@@ -24,7 +24,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY')
-# SECRET_KEY = 'django-insecure-tj=%gb^l8a-k%lp=^8d_0@_q=et%!hed#j%mo3=mp4)fbnk&tj'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -89,8 +88,6 @@ DATABASES = {
         'PORT': [os.getenv('FSTR_DB_PORT')],
     }
 }
-
-
 
 
 # Password validation

@@ -20,7 +20,7 @@ from django.urls import path, include
 from rest_framework import routers
 
 from DBpereval import views
-from DBpereval.views import PerevalAddedViewset
+from DBpereval.views import PerevalViewset
 from . import settings
 
 router = routers.DefaultRouter()
@@ -34,7 +34,7 @@ router.register(r'image', views.PerevalImageViewset)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(router.urls)),
-    path('submitData/', PerevalAddedViewset.as_view()),
+    # path('submitData/', PerevalViewset.as_view()),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
