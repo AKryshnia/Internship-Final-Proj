@@ -69,6 +69,6 @@ class PerevalViewset(viewsets.ModelViewSet):
         else:
             return Response({
                 'state': '0',
-                'message': f'Отклонено! Причина: статус объекта должен быть {pereval.get_status_display()}'
+                'message': f'Отклонено! Причина: статус объекта должен быть "new", текущий статус - "{pereval.get_status_display()}"'
             })
 
