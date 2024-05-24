@@ -2,11 +2,11 @@ from django.db import models
 
 
 class Tourist(models.Model):
-    email = models.CharField(max_length=100, unique=True)
-    fam = models.CharField(max_length=255) # фамилия
-    name = models.CharField(max_length=255) # имя
-    otc = models.CharField(max_length=255) # отчество
-    phone = models.CharField(max_length=50, unique=True)
+    email = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255)
+    patronymic = models.CharField(max_length=255)
+    phone = models.CharField(max_length=50)
 
     def __str__(self):
         return self.email
@@ -24,11 +24,6 @@ class Pereval(models.Model):
         ('RJ', 'rejected'),
     )
 
-    winter = models.ForeignKey('Level', on_delete=models.CASCADE, related_name='winter_level')
-    spring = models.ForeignKey('Level', on_delete=models.CASCADE, related_name='spring_level')
-    summer = models.ForeignKey('Level', on_delete=models.CASCADE, related_name='summer_level')
-    autumn = models.ForeignKey('Level', on_delete=models.CASCADE, related_name='autumn_level')
-
     beauty_title = models.CharField(max_length=128)
     title = models.CharField(max_length=128)
     other_titles = models.CharField(max_length=128)
@@ -37,6 +32,7 @@ class Pereval(models.Model):
     user = models.ForeignKey(Tourist, on_delete=models.CASCADE)
     coords = models.OneToOneField('Coordinates', on_delete=models.CASCADE)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default=NEW)
+    level = models.ForeignKey('Level', on_delete=models.CASCADE)
 
 
 class Coordinates(models.Model):
@@ -59,12 +55,19 @@ class Level(models.Model):
         ('2Б', '2Б'),
         ('3Б', '3Б'),
     )
-    level = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=LVLA_1)
+
+    winter = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=LVLA_1)
+    spring = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=LVLA_1)
+    summer = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=LVLA_1)
+    autumn = models.CharField(max_length=2, choices=LEVEL_CHOICES, default=LVLA_1)
 
 
 class PerevalImage(models.Model):
-    # само изображение
-    data = models.ImageField(upload_to='pereval_image', default='default.jpg')
-    title = models.CharField(max_length=255) # название
+    # images = models.ImageField(upload_to='static/images', default='default.jpg')
+    images = models.ImageField(upload_to='static/images')
+    title = models.CharField(max_length=128)
     pereval = models.ForeignKey(Pereval, on_delete=models.CASCADE, related_name='images') # id перевала
+
+    def __str__(self):
+        return self.title
 
