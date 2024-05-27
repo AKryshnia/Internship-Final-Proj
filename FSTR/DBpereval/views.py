@@ -28,6 +28,7 @@ class PerevalImageViewset(viewsets.ModelViewSet):
 class PerevalViewset(viewsets.ModelViewSet):
     queryset = Pereval.objects.all()
     serializer_class = PerevalSerializer
+    filterset_fields = ['user__email']
 
     def create(self, request, *args, **kwargs):
         serializer = PerevalSerializer(data=request.data)
@@ -69,6 +70,7 @@ class PerevalViewset(viewsets.ModelViewSet):
         else:
             return Response({
                 'state': '0',
-                'message': f'Отклонено! Причина: статус объекта должен быть "new", текущий статус - "{pereval.get_status_display()}"'
+                'message': f'Отклонено! Причина: статус объекта должен быть "new", '
+                           f'текущий статус - "{pereval.get_status_display()}"'
             })
 

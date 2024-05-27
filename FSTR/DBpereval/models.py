@@ -63,7 +63,6 @@ class Level(models.Model):
 
 
 class PerevalImage(models.Model):
-    # images = models.ImageField(upload_to='static/images', default='default.jpg')
     images = models.ImageField(upload_to='static/images')
     title = models.CharField(max_length=128)
     pereval = models.ForeignKey(Pereval, on_delete=models.CASCADE, related_name='images') # id перевала
