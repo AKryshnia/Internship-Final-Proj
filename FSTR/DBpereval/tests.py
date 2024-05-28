@@ -1,7 +1,9 @@
+from unittest import TestCase
+
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
-from .serializers import *
+from DBpereval.serializers import *
 
 
 class TouristApiTestCase(APITestCase):
@@ -133,3 +135,64 @@ class PerevalApiTestCase(APITestCase):
         self.assertEquals(serializer_data, response.data)
         self.assertEquals(status.HTTP_200_OK, response.status_code)
 
+
+# class PerevalImageApiTestCase(APITestCase):
+#     def setUp(self):
+#         self.image_1 = PerevalImage.objects.create(images='image1.jpg', title='image1',
+#                                                    pereval=Pereval.objects.get(id=1))
+#         self.image_2 = PerevalImage.objects.create(images='image2.jpg', title='image2',
+#                                                    pereval=Pereval.objects.get(id=2))
+#
+#     def test_get_list(self):
+#         url = reverse('perevalimage-list')
+#         response = self.client.get(url)
+#         serializer_data = PerevalImageSerializer([self.image_1, self.image_2], many=True).data
+#         print(serializer_data)
+#         print(response.data)
+#         self.assertEquals(serializer_data, response.data)
+#         self.assertEquals(len(serializer_data), 2)
+#         self.assertEquals(status.HTTP_200_OK, response.status_code)
+#
+#     def test_get_detail(self):
+#         url = reverse('perevalimage-detail', args=(self.image_1.id,))
+#         response = self.client.get(url)
+#         serializer_data = PerevalImageSerializer(self.image_1).data
+#         print(serializer_data)
+#         print(response.data)
+#         self.assertEquals(serializer_data, response.data)
+#         self.assertEquals(status.HTTP_200_OK, response.status_code)
+
+
+class TouristSerializerTestCase(TestCase):
+    def setUp(self):
+        self.user_1 = Tourist.objects.create(email='email1@mail.ru',
+                                             last_name='Lastname1',
+                                             first_name='Name1',
+                                             patronymic='Patronymic1',
+                                             phone='89210000001')
+        self.user_2 = Tourist.objects.create(email='email2@mail.ru',
+                                             last_name='Lastname2',
+                                             first_name='Name2',
+                                             patronymic='Patronymic2',
+                                             phone='89210000002')
+
+    def test_check(self):
+        serializer_data = TouristSerializer([self.user_1, self.user_2], many=True).data
+        expected_data = [
+
+            {
+                'email': 'email1@mail.ru',
+                'last_name': 'Lastname1',
+                'first_name': 'Name1',
+                'patronymic': 'Patronymic1',
+                'phone': '89210000001'
+            },
+            {
+                'email': 'email2@mail.ru',
+                'last_name': 'Lastname2',
+                'first_name': 'Name2',
+                'patronymic': 'Patronymic2',
+                'phone': '89210000002'
+            }
+        ]
+        self.assertEquals(serializer_data, expected_data)
