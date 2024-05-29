@@ -91,7 +91,7 @@ class LevelApiTestCase(APITestCase):
 
 class PerevalApiTestCase(APITestCase):
     def setUp(self):
-        self.pereval_1 = Pereval.objects.create(beauty_title='BTitle_1', title='BT_1', other_titles='BT_11',
+        self.pereval_1 = Pereval.objects.create(id=1, beauty_title='BTitle_1', title='BT_1', other_titles='BT_11',
                                                 connect='Connects', add_time='2024-05-28T11:11:11.853Z', status='NW',
                                                 user=Tourist.objects.create(email='email1@mail.ru',
                                                                             last_name='Lastname1',
@@ -102,7 +102,7 @@ class PerevalApiTestCase(APITestCase):
                                                                                   elevation=111),
                                                 level=Level.objects.create(winter='1A', spring='1A', summer='1A',
                                                                            autumn='1A'))
-        self.pereval_2 = Pereval.objects.create(beauty_title='BTitle_2', title='BT_2', other_titles='BT_22',
+        self.pereval_2 = Pereval.objects.create(id=2, beauty_title='BTitle_2', title='BT_2', other_titles='BT_22',
                                                 connect='Connects', add_time='2024-05-28T22:22:22.853Z', status='NW',
                                                 user=Tourist.objects.create(email='email2@mail.ru',
                                                                             last_name='Lastname2',
@@ -215,4 +215,5 @@ class LevelSerializerTestCase(TestCase):
             }
         ]
         self.assertEquals(serializer_data, expected_data)
+
 
