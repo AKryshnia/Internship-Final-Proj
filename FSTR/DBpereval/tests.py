@@ -216,3 +216,147 @@ class LevelSerializerTestCase(TestCase):
         ]
         self.assertEquals(serializer_data, expected_data)
 
+# Варианты теста сериализатора Pereval
+# class PerevalSerializerTestCase(TestCase):
+#     def setUp(self):
+#         self.pereval_1 = Pereval.objects.create(beauty_title='BTitle_1', title='BT_1', other_titles='BT_11',
+#                                                 connect='Connects1',
+#                                                 add_time='%d-%m-%Y %H:%M:%S',
+#                                                 status='NW',
+#                                                 user=Tourist.objects.create(email='email1@mail.ru',
+#                                                                             last_name='Lastname1',
+#                                                                             first_name='Name1',
+#                                                                             patronymic='Patronymic1',
+#                                                                             phone='89210000001'),
+#                                                 coords=Coordinates.objects.create(latitude='11.11111111',
+#                                                                                   longitude='11.11111111',
+#                                                                                   elevation=111),
+#                                                 level=Level.objects.create(winter='1A', spring='1A', summer='1A',
+#                                                                            autumn='1A'),
+#                                                 images=PerevalImage.objects.create(images='image1.jpg', title='title1',
+#                                                                                    pereval='pereval_1'))
+#         self.pereval_2 = Pereval.objects.create(beauty_title='BTitle_2', title='BT_2', other_titles='BT_22',
+#                                                 connect='Connects2',
+#                                                 add_time='%d-%m-%Y %H:%M:%S',
+#                                                 status='NW',
+#                                                 user=Tourist.objects.create(email='email2@mail.ru',
+#                                                                             last_name='Lastname2',
+#                                                                             first_name='Name2',
+#                                                                             patronymic='Patronymic2',
+#                                                                             phone='89210000002'),
+#                                                 coords=Coordinates.objects.create(latitude='22.22222222',
+#                                                                                   longitude='22.22222222',
+#                                                                                   elevation=222),
+#                                                 level=Level.objects.create(winter='2A', spring='2A', summer='2A',
+#                                                                            autumn='2A'),
+#                                                 images=PerevalImage.objects.create(images='image2.jpg', title='title2',
+#                                                                                    pereval='pereval_2'))
+
+#     def test_check(self):
+#         serializer_data = PerevalSerializer([self.pereval_1, self.pereval_2], many=True).data
+#         expected_data = [
+
+#             {
+#                 'beauty_title': 'BTitle_1',
+#                 'title': 'BT_1',
+#                 'other_titles': 'BT_11',
+#                 'connect': 'Connects1',
+#                 'add_time': self.pereval_1.add_time.strftime('%d-%m-%Y %H:%M:%S'),
+#                 'status': 'NW',
+#                 'user': {'email': 'email1@mail.ru', 'last_name': 'Lastname1', 'first_name': 'Name1',
+#                          'patronymic': 'Patronymic1', 'phone': '89210000001'},
+#                 'coords': {'latitude': '11.11111111', 'longitude': '11.11111111', 'elevation': 111},
+#                 'level': {'winter': '1A', 'spring': '1A', 'summer': '1A', 'autumn': '1A'},
+#                 'images': [
+#                     {'images': 'image1.jpg', 'title': 'title1'},
+#                     {'images': 'image2.jpg', 'title': 'title2'}
+#                 ]
+#             },
+#             {
+#                 'beauty_title': 'BTitle_2',
+#                 'title': 'BT_2',
+#                 'other_titles': 'BT_22',
+#                 'connect': 'Connects2',
+#                 'add_time': self.pereval_2.add_time.strftime('%d-%m-%Y %H:%M:%S'),
+#                 'status': 'NW',
+#                 'user': {'email': 'email2@mail.ru', 'last_name': 'Lastname2', 'first_name': 'Name2',
+#                          'patronymic': 'Patronymic2', 'phone': '89210000002'},
+#                 'coords': {'latitude': '22.22222222', 'longitude': '22.22222222', 'elevation': 222},
+#                 'level': {'winter': '2A', 'spring': '2A', 'summer': '2A', 'autumn': '2A'},
+#                 'images': [
+#                     {'images': 'image3.jpg', 'title': 'title3'},
+#                     {'images': 'image4.jpg', 'title': 'title4'}
+#                 ]
+#             }
+#         ]
+#         self.assertEquals(serializer_data, expected_data)
+		
+
+# Второй вариант через Factory Boy:
+
+# class TouristFactory(factory.django.DjangoModelFactory):
+#     class Meta:
+#         model = Tourist
+#     email = factory.Faker('text')
+#     last_name = factory.Faker('text')
+#     first_name = factory.Faker('text')
+#     patronymic = factory.Faker('text')
+#     phone = factory.Faker('text')
+
+
+# class CoordinatesFactory(factory.django.DjangoModelFactory):
+#     class Meta:
+#         model = Coordinates
+#     latitude = factory.Faker('decimal')
+#     longitude = factory.Faker('text')
+#     elevation = factory.Faker('integer')
+
+
+# class LevelFactory(factory.django.DjangoModelFactory):
+#     class Meta:
+#         model = Level
+
+#     winter = factory.Faker('text')
+#     spring = factory.Faker('text')
+#     summer = factory.Faker('text')
+#     autumn = factory.Faker('text')
+
+# class PerevalFactory(factory.django.DjangoModelFactory):
+#     class Meta:
+#         model = Pereval
+
+#     beauty_title = factory.Faker('text')
+#     title = factory.Faker('text')
+#     other_titles = factory.Faker('text')
+#     connect = factory.Faker('text')
+#     add_time = factory.Faker('date_time')
+#     status = factory.Faker('text')
+
+#     user = factory.SubFactory(TouristFactory)
+#     coords = factory.SubFactory(CoordinatesFactory)
+#     level = factory.SubFactory(LevelFactory)
+
+#     @factory.post_generation
+#     def images(self, create, extracted, **kwargs):
+#         if not create:
+#             return
+
+#         if extracted:
+#             for image_data in extracted:
+#                 PerevalImageFactory(pereval=self, **image_data)
+
+
+# class PerevalImageFactory(factory.django.DjangoModelFactory):
+#     class Meta:
+#         model = PerevalImage
+
+#     title = factory.Faker('text')
+#     images = factory.Faker('image_url')
+
+# class TestPerevalSerializer(APITestCase):
+#     def test_pereval_serializer(self):
+#         pereval_data = PerevalFactory.create()
+#         serializer = PerevalSerializer(data=pereval_data)
+
+#         self.assertTrue(serializer.is_valid(), "Serializer is not valid")
+
