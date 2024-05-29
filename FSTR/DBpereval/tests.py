@@ -216,4 +216,3 @@ class LevelSerializerTestCase(TestCase):
         ]
         self.assertEquals(serializer_data, expected_data)
 
-
