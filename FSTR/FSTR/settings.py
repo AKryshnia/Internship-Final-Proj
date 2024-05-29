@@ -83,12 +83,13 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'FSTR_sprint',
-        'USER': [os.getenv('FSTR_DB_LOGIN')],
-        'PASSWORD': [os.getenv('FSTR_DB_PASS')],
-        'HOST': [os.getenv('FSTR_DB_HOST')],
-        'PORT': [os.getenv('FSTR_DB_PORT')],
+        'USER': os.getenv('FSTR_DB_LOGIN'),
+        'PASSWORD': os.getenv('FSTR_DB_PASS'),
+        'HOST': os.getenv('FSTR_DB_HOST'),
+        'PORT': os.getenv('FSTR_DB_PORT'),
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
