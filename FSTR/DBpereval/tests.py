@@ -219,9 +219,10 @@ class LevelSerializerTestCase(TestCase):
         ]
         self.assertEquals(serializer_data, expected_data)
 
+
 class PerevalSerializerTestCase(TestCase):
     def setUp(self):
-        self.pereval_1 = Pereval.objects.create(id=1, beauty_title='BTitle_1', title='BT_1', other_titles='BT_11',
+        self.pereval_1 = Pereval.objects.create(beauty_title='BTitle_1', title='BT_1', other_titles='BT_11',
                                                 connect='Connects1',
                                                 add_time='%d-%m-%Y %H:%M:%S',
                                                 status='NW',
@@ -234,10 +235,11 @@ class PerevalSerializerTestCase(TestCase):
                                                                                   longitude='11.11111111',
                                                                                   elevation=111),
                                                 level=Level.objects.create(winter='1A', spring='1A', summer='1A',
-                                                                           autumn='1A'))
-        images = PerevalImage.objects.create(images='image1.jpg', pereval=self.pereval_1, title='imagetitle1')
-        self.pereval_1.images.set([images])
-        self.pereval_2 = Pereval.objects.create(id=2, beauty_title='BTitle_2', title='BT_2', other_titles='BT_22',
+                                                                           autumn='1A'),
+                                                )
+        self.images_1 = PerevalImage.objects.create(images='image1.jpg', pereval=self.pereval_1, title='imagetitle1')
+
+        self.pereval_2 = Pereval.objects.create(beauty_title='BTitle_2', title='BT_2', other_titles='BT_22',
                                                 connect='Connects2',
                                                 add_time='%d-%m-%Y %H:%M:%S',
                                                 status='NW',
@@ -251,15 +253,14 @@ class PerevalSerializerTestCase(TestCase):
                                                                                   elevation=222),
                                                 level=Level.objects.create(winter='2A', spring='2A', summer='2A',
                                                                            autumn='2A'))
-        images = PerevalImage.objects.create(images='image2.jpg', pereval=self.pereval_2, title='imagetitle2')
-        self.pereval_2.images.set([images])
+        self.images_2 = PerevalImage.objects.create(images='image2.jpg', pereval=self.pereval_2, title='imagetitle2')
 
     def test_check(self):
         serializer_data = PerevalSerializer([self.pereval_1, self.pereval_2], many=True).data
         expected_data = [
 
             {
-                'id': 1,
+                'id': self.pereval_1.id,
                 'beauty_title': 'BTitle_1',
                 'title': 'BT_1',
                 'other_titles': 'BT_11',
@@ -270,13 +271,12 @@ class PerevalSerializerTestCase(TestCase):
                          'patronymic': 'Patronymic1', 'phone': '89210000001'},
                 'coords': {'latitude': '11.11111111', 'longitude': '11.11111111', 'elevation': 111},
                 'level': {'winter': '1A', 'spring': '1A', 'summer': '1A', 'autumn': '1A'},
-                # 'images': [
-                #     {'images': 'image1.jpg', 'pereval': self.pereval_1, 'title': 'imagetitle1'},
-                #     {'images': 'image2.jpg', 'pereval': self.pereval_1, 'title': 'imagetitle2'},
-                # ]
+                'images': [
+                    {'images': 'image1.jpg', 'title': 'imagetitle1'},
+                ]
             },
             {
-                'id': 2,
+                'id': self.pereval_2.id,
                 'beauty_title': 'BTitle_2',
                 'title': 'BT_2',
                 'other_titles': 'BT_22',
@@ -287,11 +287,11 @@ class PerevalSerializerTestCase(TestCase):
                          'patronymic': 'Patronymic2', 'phone': '89210000002'},
                 'coords': {'latitude': '22.22222222', 'longitude': '22.22222222', 'elevation': 222},
                 'level': {'winter': '2A', 'spring': '2A', 'summer': '2A', 'autumn': '2A'},
-                # 'images': [
-                #     {'images': 'image3.jpg', 'pereval': self.pereval_2, 'title': 'imagetitle3'},
-                #     {'images': 'image4.jpg', 'pereval': self.pereval_2, 'title': 'imagetitle4'},
-                # ]
+                'images': [
+                    {'images': 'image2.jpg', 'title': 'imagetitle2'},
+                ]
             }
         ]
+
         self.assertEquals(serializer_data, expected_data)
 
